@@ -16,14 +16,14 @@ public:
 	~Thread();
 	void start();
 	int join();
-	bool started const { return started_;}
+	bool started() const { return started_;}
 	pid_t tid() const { return tid_; }
 	const std::string& name() const { return name_; }
 
 private:
 	void setDefaultName();
 	bool started_;
-	bool joined;
+	bool joined_;
 	pthread_t pthreadId_;
 	pid_t tid_;
 	ThreadFunc func_;

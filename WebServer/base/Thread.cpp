@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/prctl.h>
-#include <sys.types.h>
+#include <sys/types.h>
 #include <linux/unistd.h>
 #include <stdint.h>
 #include <assert.h>
@@ -107,7 +107,7 @@ void Thread::start()
 	assert(!started_);
 	started_ = true;
 	ThreadData* data = new ThreadData(func_, name_, &tid_, &latch_);
-	if(pthread_create(&pthreadId, NULL, &startThread, data))
+	if(pthread_create(&pthreadId_, NULL, &startThread, data))
 	{
 		started_ = false;
 		delete data;
@@ -122,5 +122,5 @@ int Thread::join()
 	assert(started_);
 	assert(!joined_);
 	joined_ = true;
-	return pthread_join(pthreadId, NULL);
+	return pthread_join(pthreadId_, NULL);
 }
