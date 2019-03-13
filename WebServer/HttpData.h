@@ -14,7 +14,7 @@ class Channel;
 
 enum ProcessState
 {
-	STATE_PARSE_URT = 1,
+	STATE_PARSE_URI = 1,
 	STATE_PARSE_HEADERS,
 	STATE_RECV_BODY,
 	STATE_ANALYSIS,
@@ -46,7 +46,7 @@ enum ParseState
 	H_START = 0,
 	H_KEY,
 	H_COLON,
-	H_SPACE_AFTER_COLON,
+	H_SPACES_AFTER_COLON,
 	H_VALUE,
 	H_CR,
 	H_LF,

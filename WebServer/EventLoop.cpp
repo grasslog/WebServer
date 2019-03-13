@@ -13,7 +13,7 @@ int createEventfd()
 	int evtfd = eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC);
 	if(evtfd < 0)
 	{
-		LOG << "Failed in eventfd";
+		//LOG << "Failed in eventfd";
 		abort();
 	}
 	return evtfd;
@@ -24,14 +24,14 @@ EventLoop::EventLoop()
 poller_(new Epoll()),
 wakeupFd_(createEventfd()),
 quit_(false),
-eventHanding_(false),
+eventHandling_(false),
 callingPendingFunctors_(false),
 threadId_(CurrentThread::tid()),
 pwakeupChannel_(new Channel(this, wakeupFd_))
 {
 	if(t_loopInThisThread)
 	{
-		LOG << "Another EventLoop " << " exists in this thread " <<threadId_;
+		//LOG << "Another EventLoop " << " exists in this thread " <<threadId_;
 	}
 	else
 	{
@@ -60,7 +60,7 @@ void EventLoop::wakeup()
 	ssize_t n = write(wakeupFd_, (char*)(&one), sizeof one);
 	if(n != sizeof one)
 	{
-		LOG << "EventLoop::wakeup() writes " << n << " bytes instead of 8";
+		//LOG << "EventLoop::wakeup() writes " << n << " bytes instead of 8";
 	}
 }
 
@@ -70,20 +70,20 @@ void EventLoop::handleRead()
 	ssize_t n = readn(wakeupFd_, &one, sizeof one);
 	if(n != sizeof one)
 	{
-		LOG << "EventLoop::handleRead() reads " << n << " bytes instead of 8";
+		//LOG << "EventLoop::handleRead() reads " << n << " bytes instead of 8";
 	}
 	pwakeupChannel_->setEvents(EPOLLIN | EPOLLET);
 }
 
-void EventLoop::runInloop(Functor&& cb)
+void EventLoop::runInLoop(Functor&& cb)
 {
 	if(isInLoopThread())
 		cb();
 	else
-		queueInloop(std::move(cb));
+		queueInLoop(std::move(cb));
 }
 
-void EventLoop::queueInloop(Functor&& cb)
+void EventLoop::queueInLoop(Functor&& cb)
 {
 	{
 		MutexLockGuard lock(mutex_);
@@ -104,10 +104,10 @@ void EventLoop::loop()
 	{
 		ret.clear();
 		ret = poller_->poll();
-		eventHanding_ = true;
+		eventHandling_ = true;
 		for(auto &it : ret)
 			it->handleEvents();
-		eventHanding_ = false;
+		eventHandling_ = false;
 		doPendingFunctors();
 		poller_->handleExpired();
 	}

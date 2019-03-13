@@ -4,7 +4,7 @@
 EventLoopThread::EventLoopThread()
 : loop_(NULL),
 exiting_(false),
-thread_(bind(&EventLoopThread::threadFunc, this), "EventLoopThread");
+thread_(bind(&EventLoopThread::threadFunc, this), "EventLoopThread"),
 mutex_(),
 cond_(mutex_)
 { }
@@ -38,7 +38,7 @@ void EventLoopThread::threadFunc()
 	{
 		MutexLockGuard lock(mutex_);
 		loop_ = &loop;
-		cond_.notify()
+		cond_.notify();
 	}
 
 	loop.loop();

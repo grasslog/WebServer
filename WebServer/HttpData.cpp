@@ -9,8 +9,8 @@
 #include <iostream>
 using namespace std;
 
-pthread_once_t MimType::once_control = PTHREAD_ONCE_INIT;
-std::unordered_map<std::string, std::string> MimType::mime;
+pthread_once_t MimeType::once_control = PTHREAD_ONCE_INIT;
+std::unordered_map<std::string, std::string> MimeType::mime;
 
 
 const __uint32_t DEFAULT_EVENT = EPOLLIN | EPOLLET | EPOLLONESHOT;
@@ -37,7 +37,7 @@ void MimeType::init()
 
 std::string MimeType::getMime(const std::string &suffix)
 {
-	ptherad_once(&once_control, MimeType::init);
+	pthread_once(&once_control, MimeType::init);
 	if(mime.find(suffix) == mime.end())
 		return mime["default"];
 	else 
@@ -46,7 +46,7 @@ std::string MimeType::getMime(const std::string &suffix)
 
 HttpData::HttpData(EventLoop *loop, int connfd):
 	loop_(loop),
-	chnnel_(new Channel(loop, connfd)),
+	channel_(new Channel(loop, connfd)),
 	fd_(connfd),
 	error_(false),
 	connectionState_(H_CONNECTED),
@@ -73,7 +73,7 @@ void HttpData::reset()
 	headers_.clear();
 	if(timer_.lock())
 	{
-		shared_ptr<TimerNode> my_timer(timer_lock());
+		shared_ptr<TimerNode> my_timer(timer_.lock());
 		my_timer->clearReq();
 		timer_.reset();
 	}
@@ -83,15 +83,15 @@ void HttpData::seperateTimer()
 {
 	if(timer_.lock())
 	{
-		shared_ptr<TimerNode> my_timer(timer.lock());
+		shared_ptr<TimerNode> my_timer(timer_.lock());
 		my_timer->clearReq();
-		timer_reset();
+		timer_.reset();
 	}
 }
 
 void HttpData::handleRead()
 {
-	__uint32_t &events_ = channel_->geEvents();
+	__uint32_t &events_ = channel_->getEvents();
 	do
 	{
 		bool zero = false;
@@ -126,9 +126,9 @@ void HttpData::handleRead()
 			else if(flag == PARSE_URI_ERROR)
 			{
 				perror("2");
-				LOG << "FD = " << fd_ << "," << inBuffer_ << "******";
+				//LOG << "FD = " << fd_ << "," << inBuffer_ << "******";
 				inBuffer_.clear();
-				error = true;
+				error_ = true;
 				handleError(fd_, 400, "Bad Requst");
 				break;
 			}
@@ -153,7 +153,7 @@ void HttpData::handleRead()
 			}
 			else
 			{
-				state_ = SATE_ANALYSIS;
+				state_ = STATE_ANALYSIS;
 			}
 		}
 		if(state_ == STATE_RECV_BODY)
@@ -204,7 +204,7 @@ void HttpData::handleRead()
 			else 
 				return;
 		}
-		else if(!error && connectionState_ != H_DISCONNECTED)
+		else if(!error_ && connectionState_ != H_DISCONNECTED)
 			events_ |= EPOLLIN;
 	}
 }
@@ -213,7 +213,7 @@ void HttpData::handleWrite()
 {
 	if(!error_ && connectionState_ != H_DISCONNECTED)
 	{
-		__uint32_t &events_ = channel_->geEvents();
+		__uint32_t &events_ = channel_->getEvents();
 		if(writen(fd_, outBuffer_) < 0)
 		{
 			perror("writen");
@@ -228,7 +228,7 @@ void HttpData::handleWrite()
 void HttpData::handleConn()
 {
 	seperateTimer();
-	__uint32_t &events_ = channel_->geEvents()
+	__uint32_t &events_ = channel_->getEvents();
 	if(!error_ && connectionState_ == H_CONNECTED)
 	{
 		if(events_ != 0)
@@ -254,7 +254,7 @@ void HttpData::handleConn()
 		else 
 		{
 			loop_->shutdown(channel_);
-			loop_->runInloop(bind(&HttpData::handleClose, shared_from_this()));
+			loop_->runInLoop(bind(&HttpData::handleClose, shared_from_this()));
 		}
 	}
 	else if(!error_ && connectionState_ == H_DISCONNECTING && (events_ & EPOLLOUT))
@@ -263,7 +263,7 @@ void HttpData::handleConn()
 	}
 	else //something error
 	{
-		loop_->runInloop(bind(&HttpData::handleClose, shared_from_this()));
+		loop_->runInLoop(bind(&HttpData::handleClose, shared_from_this()));
 	}
 }
 
@@ -405,8 +405,8 @@ HeaderState HttpData::parseHeaders()
 				if(str[i] == '\n')
 				{
 					hState_ = H_LF;
-					string key(string.begin() + key_start, str.beign() + key_end);
-					string value(string.begin() + value_start, str.begin() + value_end());
+					string key(str.begin() + key_start, str.begin() + key_end);
+					string value(str.begin() + value_start, str.begin() + value_end);
 					headers_[key] = value;
 					now_read_line_begin = i;
 				}
@@ -452,7 +452,7 @@ HeaderState HttpData::parseHeaders()
 		return PARSE_HEADER_SUCCESS;
 	}
 	str = str.substr(now_read_line_begin);
-	return PARSE_HEADER_AGAIN
+	return PARSE_HEADER_AGAIN;
 }
 
 AnalysisState HttpData::analysisRequest()
@@ -473,9 +473,9 @@ AnalysisState HttpData::analysisRequest()
 		int dot_pos = fileName_.find('.');
 		string filetype;
 		if(dot_pos < 0)
-			filetype = MimType::getMime("default");
+			filetype = MimeType::getMime("default");
 		else 
-			filetype = MimeType.getMime(fileName_.substr(dot_pos));
+			filetype = MimeType::getMime(fileName_.substr(dot_pos));
 
 		// echo test
 		if(fileName_ == "hello")

@@ -14,7 +14,7 @@
 #include <iostream>
 using namespace std;
 
-const int EVENTSUM = 4096;
+const int EVENTSNUM = 4096;
 const int EPOLLWAIT_TIME = 10000;
 
 typedef shared_ptr<Channel> SP_Channel;
@@ -111,7 +111,7 @@ std::vector<SP_Channel> Epoll::getEventsRequest(int events_num)
 	std::vector<SP_Channel> req_data;
 	for(int i=0; i<events_num; ++i)
 	{
-		int fd = events[i].data.fd;
+		int fd = events_[i].data.fd;
 
 		SP_Channel cur_req = fd2chan_[fd];
 
@@ -121,7 +121,7 @@ std::vector<SP_Channel> Epoll::getEventsRequest(int events_num)
 			cur_req->setEvents(0);
 			req_data.push_back(cur_req);
 		}else{
-			LOG << "SP cur_req is invalid";
+			//LOG << "SP cur_req is invalid";
 		}
 	}
 	return req_data;
@@ -133,5 +133,7 @@ void Epoll::add_timer(SP_Channel request_data, int timeout)
 	if(t)
 		timerManager_.addTimer(t, timeout);
 	else
-		LOG << "timer add fail";
+	{
+		//LOG << "timer add fail";
+	}
 }

@@ -9,7 +9,7 @@
 Server::Server(EventLoop *loop, int threadNum, int port)
 : loop_(loop),
 threadNum_(threadNum),
-eventLoopThreadPool_(new eventLoopThreadPool(loop_, threadNum)),
+eventLoopThreadPool_(new EventLoopThreadPool(loop_, threadNum)),
 started_(false),
 acceptChannel_(new Channel(loop_)),
 port_(port),
@@ -43,18 +43,18 @@ void Server::handNewConn()
 	while((accept_fd = accept(listenFd_, (struct sockaddr*)&client_addr, &client_addr_len)) > 0)
 	{
 		EventLoop *loop = eventLoopThreadPool_->getNextLoop();
-		LOG << "New connection from " << inet_ntoa(client_addr.sin_addr) << ":" << ntohs(client_addr.sin_port);
+		//LOG << "New connection from " << inet_ntoa(client_addr.sin_addr) << ":" << ntohs(client_addr.sin_port);
 	
 
 		if(accept_fd >= MAXFDS)
 		{
 			close(accept_fd);
-			continue
+			continue;
 		}	
 		// set nonblocking
 		if(setSocketNonBlocking(accept_fd) < 0)
 		{
-			LOG << "Set non block failed!";
+			//LOG << "Set non block failed!";
 			return ;
 		}
 

@@ -8,7 +8,7 @@ next_(0)
 {
 	if(numThreads_ <= 0)
 	{
-		LOG << "numThreads_ <= 0";
+		//LOG << "numThreads_ <= 0";
 		abort();
 	}
 }
@@ -19,7 +19,7 @@ void EventLoopThreadPool::start()
 	started_ = true;
 	for(int i=0; i<numThreads_; ++i)
 	{
-		std::shared_ptr<EventLoopThreadPool> t(new EventLoopThread());
+		std::shared_ptr<EventLoopThread> t(new EventLoopThread());
 		threads_.push_back(t);
 		loops_.push_back(t->startLoop());
 	}

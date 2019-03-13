@@ -5,17 +5,12 @@
 #include <unistd.h>
 #include <queue>
 #include <cstdlib>
-#include <opencv/cv.h>
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
-using namespace cv;
-
 #include <iostream>
 using namespace std;
 
 Channel::Channel(EventLoop *loop)
 : loop_(loop),
-events_(0)
+events_(0),
 lastEvents_(0)
 { }
 

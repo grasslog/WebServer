@@ -12,7 +12,7 @@ public:
 
 	~EventLoopThreadPool()
 	{
-		LOG << "~EventLoopThreadPool()";
+		//LOG << "~EventLoopThreadPool()";
 	}
 	void start();
 
@@ -25,4 +25,4 @@ private:
 	int next_;
 	std::vector<std::shared_ptr<EventLoopThread>> threads_;
 	std::vector<EventLoop*> loops_;
-}
+};
