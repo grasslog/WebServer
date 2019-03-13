@@ -23,7 +23,7 @@ namespace CurrentThread
 		return t_tidString;
 	}
 
-	inline int t_tidStringLength()
+	inline int tidStringLength()
 	{
 		return t_tidStringLength;
 	}
