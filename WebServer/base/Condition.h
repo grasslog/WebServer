@@ -6,7 +6,7 @@
 #include <cstdint>
 #include <time.h>
 
-class Condition: noncopyable'
+class Condition: noncopyable
 {
 public:
 	explicit Condition(MutexLock& _mutex)
