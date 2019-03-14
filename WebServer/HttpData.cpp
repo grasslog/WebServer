@@ -92,10 +92,12 @@ void HttpData::seperateTimer()
 void HttpData::handleRead()
 {
 	__uint32_t &events_ = channel_->getEvents();
+	
 	do
 	{
 		bool zero = false;
 		int read_num = readn(fd_, inBuffer_, zero);
+		
 		if(connectionState_ == H_DISCONNECTING)
 		{
 			inBuffer_.clear();
