@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 	std::string logPath = "./WebServer.log";
 
 	int opt;
-	const char *str = "t:p";
+	const char *str = "t:p:";
 	while((opt = getopt(argc, argv, str)) != -1)
 	{
 		switch(opt)
