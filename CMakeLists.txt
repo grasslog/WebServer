@@ -8,6 +8,7 @@ endif()
 
 set(CXX_FLAGS
     -g
+    -O0
     -Wall
     -std=c++11
     -D_PTHREADS

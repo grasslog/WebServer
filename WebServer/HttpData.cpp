@@ -57,6 +57,7 @@ HttpData::HttpData(EventLoop *loop, int connfd):
 	hState_(H_START),
 	keepAlive_(false)
 {
+	// login IO event with HttpData control
 	channel_->setReadHandler(bind(&HttpData::handleRead, this));
 	channel_->setWriteHandler(bind(&HttpData::handleWrite, this));
 	channel_->setConnHandler(bind(&HttpData::handleConn, this));
@@ -79,6 +80,7 @@ void HttpData::reset()
 	}
 }
 
+// seperate time clock with HttpData 
 void HttpData::seperateTimer()
 {
 	if(timer_.lock())
@@ -89,6 +91,7 @@ void HttpData::seperateTimer()
 	}
 }
 
+// http state machine with read from request
 void HttpData::handleRead()
 {
 	__uint32_t &events_ = channel_->getEvents();
@@ -211,6 +214,7 @@ void HttpData::handleRead()
 	}
 }
 
+// write the result of handle to client in socket fd
 void HttpData::handleWrite()
 {
 	if(!error_ && connectionState_ != H_DISCONNECTED)
@@ -227,6 +231,7 @@ void HttpData::handleWrite()
 	}
 }
 
+// seperrate long connection and short connection
 void HttpData::handleConn()
 {
 	seperateTimer();
@@ -234,7 +239,7 @@ void HttpData::handleConn()
 	if(!error_ && connectionState_ == H_CONNECTED)
 	{
 		if(events_ != 0)
-		{
+		{   // handle the new connection
 			int timeout = DEFAULT_EXPIRED_TIME;
 			if(keepAlive_)
 				timeout = DEFAULT_KEEP_ALIVE_TIME;
@@ -249,12 +254,14 @@ void HttpData::handleConn()
 	
 		else if(keepAlive_)
 		{
+			// http long connection
 			events_ |= (EPOLLIN | EPOLLET);
 			int timeout = DEFAULT_KEEP_ALIVE_TIME;
 			loop_->updatePoller(channel_, timeout);
 		}
 		else 
 		{
+			// http short connection
 			loop_->shutdown(channel_);
 			loop_->runInLoop(bind(&HttpData::handleClose, shared_from_this()));
 		}
@@ -269,6 +276,7 @@ void HttpData::handleConn()
 	}
 }
 
+// http state machine with parse url
 URIState HttpData::parseURI()
 {
 	string &str = inBuffer_;
@@ -344,6 +352,7 @@ URIState HttpData::parseURI()
 	return PARSE_URI_SUCCESS;
 }
 
+// http state machine with parse headers
 HeaderState HttpData::parseHeaders()
 {
 	string &str = inBuffer_;
@@ -457,6 +466,7 @@ HeaderState HttpData::parseHeaders()
 	return PARSE_HEADER_AGAIN;
 }
 
+// annalysis the completely request
 AnalysisState HttpData::analysisRequest()
 {
 	if(method_ == METHOD_POST)
@@ -511,6 +521,7 @@ AnalysisState HttpData::analysisRequest()
 	return ANALYSIS_ERROR;
 }
 
+// something error in http request
 void HttpData::handleError(int fd, int err_num, string short_msg)
 {
     short_msg = " " + short_msg;
@@ -527,13 +538,14 @@ void HttpData::handleError(int fd, int err_num, string short_msg)
     header_buff += "Content-length: " + to_string(body_buff.size()) + "\r\n";
     header_buff += "Host: www.gdl.pub\r\n";
     header_buff += "\r\n";
-    // 错误处理不考虑writen不完的情况
+    // not think for writen lost
     sprintf(send_buff, "%s", header_buff.c_str());
     writen(fd, send_buff, strlen(send_buff));
     sprintf(send_buff, "%s", body_buff.c_str());
     writen(fd, send_buff, strlen(send_buff));
 }
 
+// close the http request
 void HttpData::handleClose()
 {
     connectionState_ = H_DISCONNECTED;
@@ -542,6 +554,7 @@ void HttpData::handleClose()
 }
 
 
+// login IO event in chnnel_ and loop_ add the file descripe
 void HttpData::newEvent()
 {
     channel_->setEvents(DEFAULT_EVENT);

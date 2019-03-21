@@ -85,10 +85,10 @@ public:
 	static std::string getMime(const std::string &suffix);
 
 private:
-	static pthread_once_t once_control;
+	static pthread_once_t once_control; // just initial once
 };
 
-class HttpData: public std::enable_shared_from_this<HttpData>
+class HttpData: public std::enable_shared_from_this<HttpData> // enable asyn callback
 {
 public:
 	HttpData(EventLoop *loop, int connfd);
@@ -120,9 +120,9 @@ private:
 	int nowReadPos_;
 	ProcessState state_;
 	ParseState hState_;
-	bool keepAlive_;
-	std::map<std::string, std::string> headers_;
-	std::weak_ptr<TimerNode> timer_;
+	bool keepAlive_;   // http connect long or short option
+	std::map<std::string, std::string> headers_; // record http head key-value messages
+	std::weak_ptr<TimerNode> timer_; //easier to be callback in under as a observer
 
 	void handleRead();
 	void handleWrite();
