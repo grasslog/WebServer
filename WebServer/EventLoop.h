@@ -1,7 +1,6 @@
 #pragma once
 #include "base/Thread.h"
 #include "Epoll.h"
-#include "base/Logging.h"
 #include "Channel.h"
 #include "base/CurrentThread.h"
 #include "Util.h"
