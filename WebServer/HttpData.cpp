@@ -7,6 +7,7 @@
 #include <sys/stat.h>
 #include <sys/mman.h>
 #include <iostream>
+#include <string.h>
 using namespace std;
 
 pthread_once_t MimeType::once_control = PTHREAD_ONCE_INIT;
@@ -143,7 +144,7 @@ void HttpData::handleRead()
             else if (flag == PARSE_URI_ERROR)
             {
                 perror("2");
-                LOG << "FD = " << fd_ << "," << inBuffer_ << "******";
+                //LOG << "FD = " << fd_ << "," << inBuffer_ << "******";
                 inBuffer_.clear();
                 error_ = true;
                 handleError(fd_, 400, "Bad Request");

@@ -1,6 +1,5 @@
 #include "Epoll.h"
 #include "Util.h"
-#include "base/Logging.h"
 #include <sys/epoll.h>
 #include <errno.h>
 #include <sys/socket.h>

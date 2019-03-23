@@ -1,6 +1,5 @@
 set(LIB_SRC
-    #AsyncLogging.cpp
-    #FileUtil.cpp
+    CountDownLatch.cpp
     Thread.cpp
 )
 

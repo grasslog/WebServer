@@ -1,6 +1,6 @@
 #include "Server.h"
-#include "base/Logging.h"
 #include "Util.h"
+#include <string.h>
 #include <functional>
 #include <netinet/in.h>
 #include <sys/socket.h>

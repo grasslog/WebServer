@@ -7,7 +7,7 @@
 #include <vector>
 #include <memory>
 #include <functional>
-
+#include <assert.h>
 #include <iostream>
 using namespace std;
 
