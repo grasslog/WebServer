@@ -15,8 +15,8 @@ std::unordered_map<std::string, std::string> MimeType::mime;
 
 
 const __uint32_t DEFAULT_EVENT = EPOLLIN | EPOLLET | EPOLLONESHOT;
-const int DEFAULT_EXPIRED_TIME = 2000; // ms
-const int DEFAULT_KEEP_ALIVE_TIME = 5 * 60 * 1000; // ms
+const int DEFAULT_EXPIRED_TIME = 2000; // ms tcp默认超时时间
+const int DEFAULT_KEEP_ALIVE_TIME = 5 * 60 * 1000; // ms tcp长连接保活机制
 
 
 
@@ -61,12 +61,13 @@ HttpData::HttpData(EventLoop *loop, int connfd):
         hState_(H_START),
         keepAlive_(false)
 {
-    //loop_->queueInLoop(bind(&HttpData::setHandlers, this));
+    //Channel注册http协议的具体处理方法（注册回调函数）
     channel_->setReadHandler(bind(&HttpData::handleRead, this));
     channel_->setWriteHandler(bind(&HttpData::handleWrite, this));
     channel_->setConnHandler(bind(&HttpData::handleConn, this));
 }
 
+// http报文复位，重新设置
 void HttpData::reset()
 {
     inBuffer_.clear();
@@ -77,7 +78,7 @@ void HttpData::reset()
     hState_ = H_START;
     headers_.clear();
     //keepAlive_ = false;
-    if (timer_.lock())
+    if (timer_.lock()) //timer_ is the weak_ptr
     {
         shared_ptr<TimerNode> my_timer(timer_.lock());
         my_timer->clearReq();
@@ -85,6 +86,7 @@ void HttpData::reset()
     }
 }
 
+// 脱离时间计时器
 void HttpData::seperateTimer()
 {
     //cout << "seperateTimer" << endl;
@@ -271,28 +273,28 @@ void HttpData::handleConn()
             loop_->updatePoller(channel_, timeout);
 
         }
-        else if (keepAlive_)
+        else if (keepAlive_) // 长连接
         {
             events_ |= (EPOLLIN | EPOLLET);
             //events_ |= (EPOLLIN | EPOLLET | EPOLLONESHOT);
             int timeout = DEFAULT_KEEP_ALIVE_TIME;
             loop_->updatePoller(channel_, timeout);
         }
-        else
+        else //短连接，立即关闭
         {
             //cout << "close normally" << endl;
             loop_->shutdown(channel_);
-            loop_->runInLoop(bind(&HttpData::handleClose, shared_from_this()));
+            loop_->runInLoop(bind(&HttpData::handleClose, shared_from_this())); //enable_shared_from_this 分享安全的新建的对象
         }
     }
-    else if (!error_ && connectionState_ == H_DISCONNECTING && (events_ & EPOLLOUT))
+    else if (!error_ && connectionState_ == H_DISCONNECTING && (events_ & EPOLLOUT)) 
     {
         events_ = (EPOLLOUT | EPOLLET);
     }
     else
     {
         //cout << "close with errors" << endl;
-        loop_->runInLoop(bind(&HttpData::handleClose, shared_from_this()));
+        loop_->runInLoop(bind(&HttpData::handleClose, shared_from_this())); //enable_shared_from_this 分享安全的新建的对象
     }
 }
 
@@ -499,27 +501,7 @@ AnalysisState HttpData::analysisRequest()
 {
     if (method_ == METHOD_POST)
     {
-        // ------------------------------------------------------
-        // My CV stitching handler which requires OpenCV library
-        // ------------------------------------------------------
-        // string header;
-        // header += string("HTTP/1.1 200 OK\r\n");
-        // if(headers_.find("Connection") != headers_.end() && headers_["Connection"] == "Keep-Alive")
-        // {
-        //     keepAlive_ = true;
-        //     header += string("Connection: Keep-Alive\r\n") + "Keep-Alive: timeout=" + to_string(DEFAULT_KEEP_ALIVE_TIME) + "\r\n";
-        // }
-        // int length = stoi(headers_["Content-length"]);
-        // vector<char> data(inBuffer_.begin(), inBuffer_.begin() + length);
-        // Mat src = imdecode(data, CV_LOAD_IMAGE_ANYDEPTH|CV_LOAD_IMAGE_ANYCOLOR);
-        // //imwrite("receive.bmp", src);
-        // Mat res = stitch(src);
-        // vector<uchar> data_encode;
-        // imencode(".png", res, data_encode);
-        // header += string("Content-length: ") + to_string(data_encode.size()) + "\r\n\r\n";
-        // outBuffer_ += header + string(data_encode.begin(), data_encode.end());
-        // inBuffer_ = inBuffer_.substr(length);
-        // return ANALYSIS_SUCCESS;
+    
     }
     else if (method_ == METHOD_GET)
     {
@@ -553,7 +535,7 @@ AnalysisState HttpData::analysisRequest()
         }
         header += "Content-type: " + filetype + "\r\n";
         header += "Content-length: " + to_string(sbuf.st_size) + "\r\n";
-        header += "Host: www.linya.pub\r\n";
+        header += "Host: www.gdl.pub\r\n";
         // 头部结束
         header += "\r\n";
         outBuffer_ += header;
@@ -577,13 +559,13 @@ void HttpData::handleError(int fd, int err_num, string short_msg)
     body_buff += "<html><title>哎~出错了</title>";
     body_buff += "<body bgcolor=\"ffffff\">";
     body_buff += to_string(err_num) + short_msg;
-    body_buff += "<hr><em> LinYa's Web Server</em>\n</body></html>";
+    body_buff += "<hr><em> GDL's Web Server</em>\n</body></html>";
 
     header_buff += "HTTP/1.1 " + to_string(err_num) + short_msg + "\r\n";
     header_buff += "Content-type: text/html\r\n";
     header_buff += "Connection: close\r\n";
     header_buff += "Content-length: " + to_string(body_buff.size()) + "\r\n";
-    header_buff += "Host: www.linya.pub\r\n";
+    header_buff += "Host: www.gdl.pub\r\n";
     header_buff += "\r\n";
     // 错误处理不考虑writen不完的情况
     sprintf(send_buff, "%s", header_buff.c_str());
@@ -602,6 +584,7 @@ void HttpData::handleClose()
 
 void HttpData::newEvent()
 {
+    // 注册IO事件，并把任务事件添加到线程loop_中
     channel_->setEvents(DEFAULT_EVENT);
     loop_->addToPoller(channel_, DEFAULT_EXPIRED_TIME);
 }
