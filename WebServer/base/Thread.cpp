@@ -15,7 +15,7 @@ using namespace std;
 
 namespace CurrentThread
 {
-	__thread int t_cachedTid = 0;
+	__thread int t_cachedTid = 0;  //__thread : thread local storage
 	__thread char t_tidString[32];
 	__thread int t_tidStringLength = 6;
 	__thread const char* t_threadName = "unknow";
@@ -26,7 +26,7 @@ pid_t gettid()
 	return static_cast<pid_t>(::syscall(SYS_gettid));
 }
 
-void CurrentThread::cacheTid()
+void CurrentThread::cacheTid() // current thread
 {
 	if(t_cachedTid == 0){
 		t_cachedTid = gettid();
@@ -34,7 +34,7 @@ void CurrentThread::cacheTid()
 	}
 }
 
-// save name ,tid in thread
+// save name ,tid in  the thread
 struct ThreadData
 {
 	typedef Thread::ThreadFunc ThreadFunc;
@@ -52,9 +52,9 @@ struct ThreadData
 
 	void runInThread()
 	{
-		*tid_ = CurrentThread::tid();
+		*tid_ = CurrentThread::tid(); // get the current tid in thread
 		tid_ = NULL;
-		latch_->countDown();
+		latch_->countDown(); //make sure ThreadFunc ready
 		latch_ = NULL;
 
 		CurrentThread::t_threadName = name_.empty() ? "Thread" : name_.c_str();
@@ -102,12 +102,12 @@ void Thread::setDefaultName()
 	}
 }
 
-void Thread::start()
+void Thread::start() // start the thread 
 {
 	assert(!started_);
 	started_ = true;
 	ThreadData* data = new ThreadData(func_, name_, &tid_, &latch_);
-	if(pthread_create(&pthreadId_, NULL, &startThread, data))
+	if(pthread_create(&pthreadId_, NULL, &startThread, data)) // function in thread
 	{
 		started_ = false;
 		delete data;

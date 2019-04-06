@@ -26,7 +26,7 @@ private:
 	bool joined_;
 	pthread_t pthreadId_;
 	pid_t tid_;
-	ThreadFunc func_;
+	ThreadFunc func_;  // the exactly callback from EventLoopThread's ThreadFunc which run work in loop
 	std::string name_;
-	CountDownLatch latch_;
+	CountDownLatch latch_; // the signal, Be sure thread really could run the callback function
 };
