@@ -7,20 +7,20 @@
 #include <queue>
 #include <deque>
 
-class HttpData;
+class HttpData;  // http request bind with time manager
 
-class TimerNode
+class TimerNode // record time message bind with httpdata
 {
 public:
 	TimerNode(std::shared_ptr<HttpData> requestData, int timeout);
 	~TimerNode();
 	TimerNode(TimerNode &tn);
-	void update(int timeout);
+	void update(int timeout); // updata the excally time
 	bool isValid();
-	void clearReq();
+	void clearReq(); // clear the request which is binded with this TimerNode
 	void setDeleted() { deleted_ = true; }
 	bool isDeleted() const { return deleted_; }
-	size_t getExptime() const { return expiredTime_; }
+	size_t getExptime() const { return expiredTime_; } // expect time
 
 private:
 	bool deleted_;
@@ -36,13 +36,13 @@ struct TimerCmp
 	}
 };
 
-class TimerManager
+class TimerManager // manage TimerNode
 {
 public:
 	TimerManager();
 	~TimerManager();
 	void addTimer(std::shared_ptr<HttpData> SPHttpData, int timeout);
-	void handleExpiredEvent();
+	void handleExpiredEvent(); // delete old TimerNode with priority queue
 
 private:
 	typedef std::shared_ptr<TimerNode> SPTimerNode;
