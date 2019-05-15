@@ -6,9 +6,9 @@ http server in c++11
 - OS：CentOS 7
 - complier：g++4.8
 ## Build
-./build.sh
+    ./build.sh
 ## Start server
-./WebServer [-t thread_numbers] [-p port]
+    ./WebServer [-t thread_numbers] [-p port]
 ## Technical
 - 服务器框架采用Reactor模式，采用epoll边沿触发模式作为IO复用技术作为IO分配器，分发IO事件
 - 对于IO密集型q请求使用多线程充分利用多核CPU并行处理，创建了线程池避免线程频繁创建销毁的开销
