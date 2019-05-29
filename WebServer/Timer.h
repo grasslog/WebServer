@@ -17,7 +17,7 @@ public:
 	TimerNode(TimerNode &tn);
 	void update(int timeout); // updata the excally time
 	bool isValid();
-	void clearReq(); // clear the request which is binded with this TimerNode
+	void clearReq(); // 清除连接请求以及与之关联的时间节点
 	void setDeleted() { deleted_ = true; }
 	bool isDeleted() const { return deleted_; }
 	size_t getExptime() const { return expiredTime_; } // expect time
@@ -25,10 +25,10 @@ public:
 private:
 	bool deleted_;
 	size_t expiredTime_;
-	std::shared_ptr<HttpData> SPHttpData;
+	std::shared_ptr<HttpData> SPHttpData;	// TimerNode关联的HttpData报文类
 };
 
-struct TimerCmp
+struct TimerCmp	// 时间比较函数
 {
 	bool operator()(std::shared_ptr<TimerNode> &a, std::shared_ptr<TimerNode> &b) const
 	{
@@ -41,10 +41,10 @@ class TimerManager // manage TimerNode
 public:
 	TimerManager();
 	~TimerManager();
-	void addTimer(std::shared_ptr<HttpData> SPHttpData, int timeout);
-	void handleExpiredEvent(); // delete old TimerNode with priority queue
+	void addTimer(std::shared_ptr<HttpData> SPHttpData, int timeout);	// 将HttpData新添加到时间管理器
+	void handleExpiredEvent(); // 通过小根堆来管理请求的释放
 
 private:
 	typedef std::shared_ptr<TimerNode> SPTimerNode;
-	std::priority_queue<SPTimerNode, std::deque<SPTimerNode>, TimerCmp> timerNodeQueue;
+	std::priority_queue<SPTimerNode, std::deque<SPTimerNode>, TimerCmp> timerNodeQueue;	// 时间管理器
 };
