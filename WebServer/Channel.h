@@ -7,26 +7,29 @@
 #include <functional>
 #include <sys/epoll.h>
 
-class EventLoop;
-class HttpData;
+class EventLoop;	// 核心的事件循环函数，one thread per loop
+class HttpData;		// HttpData类封装了http报文的解析以及读写等
 
+// I/O注册函数，I/O多路复用，用来分发主线程的I/O事件；通过异步回调的机制正确的处理I/O事件。
+// 设置一个通用的Channel注册相对应的事件处理回调函数，当然Channel也有事件处理方法来统一处理事件
 class Channel
 {
 private:
-	typedef std::function<void()> CallBack;
-	EventLoop *loop_;
-	int fd_;
-	__uint32_t events_;
+	typedef std::function<void()> CallBack;	// 异步回调函数
+	EventLoop *loop_;	// 关键的事件循环
+	int fd_;	// 事件相关的文件描述符
+	__uint32_t events_;	// 相关的事件
 	__uint32_t revents_;
 	__uint32_t lastEvents_;
 
-	std::weak_ptr<HttpData> holder_;
+	std::weak_ptr<HttpData> holder_;	// 虚指针
 
 private:
 	int parse_URI();
 	int parse_Headers();
 	int analysisRequest();
 
+// 各回调函数机制
 	CallBack readHandler_;
 	CallBack writeHandler_;
 	CallBack errorHandler_;
@@ -49,6 +52,7 @@ public:
 		return ret;
 	}
 
+// 设置相应的回调函数
 	void setReadHandler(CallBack &&readHandler)
 	{
 		readHandler_ = readHandler;
@@ -66,6 +70,7 @@ public:
 		connHandler_ = connHandler;
 	}
 
+// Channel的事件处理方法
 	void handleEvents()
 	{
 		events_ = 0;

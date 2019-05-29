@@ -8,6 +8,7 @@
 #include <iostream>
 using namespace std;
 
+//Channel中eventLoop以及fd的用处，在后面会体现
 Channel::Channel(EventLoop *loop)
 : loop_(loop),
 events_(0),
