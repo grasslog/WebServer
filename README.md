@@ -21,3 +21,5 @@ http server in c++11
 - 为减少内存泄漏的可能，使用智能指针等RAII机制
 - 使用状态机解析了HTTP请求,支持http管线化请求
 - 支持优雅关闭连接 
+## WebServer demo
+![image](https://github.com/before25tofree/Images/blob/master/WebServer/WebServer.PNG)
