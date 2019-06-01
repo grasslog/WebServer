@@ -27,6 +27,8 @@ events_(EVENTSNUM)
 Epoll::~Epoll()
 { }
 
+// 借助fd2http_[]和fd2chan_[]来记录httpdata和channel
+
 // register fd
 void Epoll::epoll_add(SP_Channel request, int timeout)
 {
@@ -105,6 +107,7 @@ void Epoll::handleExpired()
 	timerManager_.handleExpiredEvent();
 }
 
+// 根据events_num返回活跃事件数量和缓存的channel和httpdata，最终返回req_data(channel share_ptr)向量集合
 std::vector<SP_Channel> Epoll::getEventsRequest(int events_num)
 {
 	std::vector<SP_Channel> req_data;
@@ -116,7 +119,7 @@ std::vector<SP_Channel> Epoll::getEventsRequest(int events_num)
 
 		if(cur_req)
 		{
-			cur_req->setRevents(events_[i].events);
+			cur_req->setRevents(events_[i].events); // 根据返回的活跃事件注册添加到结果集合中
 			cur_req->setEvents(0);
 			req_data.push_back(cur_req);
 		}else{
@@ -126,6 +129,7 @@ std::vector<SP_Channel> Epoll::getEventsRequest(int events_num)
 	return req_data;
 }
 
+// 将请求添加到TimerManager_中
 void Epoll::add_timer(SP_Channel request_data, int timeout)
 {
 	shared_ptr<HttpData> t = request_data->getHolder();
