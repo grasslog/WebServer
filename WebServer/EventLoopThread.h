@@ -5,6 +5,7 @@
 #include "base/noncopyable.h"
 #include "EventLoop.h"
 
+// worker thread pool which manage work thread create,join and cancel.
 class EventLoopThread : noncopyable
 {
 public:
