@@ -1,5 +1,4 @@
-# StaticWebServer
-http server in c++11
+# High-performance multi-threaded tcp network server
 ## Introduction
 此项目借鉴《muduo网络库》思想，实现了一个网络库轮子web服务器，语言为c++11，并发模型使用Reactor+非阻塞IO+主线程和工作线程的事件循环，思想遵循one loop per thread。可处理静态资源，解析了get、HTTPhead请求，支持HTTP连接，支持管线化请求，并用webBench进行压测。
 ## Environment
