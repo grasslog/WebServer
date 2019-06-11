@@ -12,6 +12,7 @@
 *.pch
 *.vscode
 *.idea
+./cmake-build-debug/*
 
 # Compiled Dynamic libraries
 *.so
