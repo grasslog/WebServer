@@ -1,0 +1,2 @@
+D:\MinGW\bin\ar.exe qc libserver_base.a  CMakeFiles/libserver_base.dir/CountDownLatch.cpp.obj CMakeFiles/libserver_base.dir/Thread.cpp.obj
+D:\MinGW\bin\ranlib.exe libserver_base.a
