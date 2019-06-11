@@ -1,6 +1,6 @@
 # High-performance multi-threaded tcp network server
 
-[![](https://img.shields.io/travis/before25tofree/WebServer/master.svg)](https://travis-ci.org/before25tofree/WebServer)
+[![](https://img.shields.io/travis/before25tofree/WebServer/master.svg)](https://travis-ci.org/grasslog/WebServer)
 [![](https://img.shields.io/badge/language-c++-orange.svg)](http://www.cplusplus.com/)
 [![](https://img.shields.io/github/license/before25tofree/WebServer.svg)](https://github.com/before25tofree/WebServer/blob/master/LICENSE)
 [![](https://img.shields.io/badge/github.io-@pages-inactive.svg)](https://before25tofree.github.io/WebServer/)
