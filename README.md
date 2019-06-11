@@ -4,7 +4,7 @@
 [![](https://img.shields.io/badge/language-c++-orange.svg)](http://www.cplusplus.com/)
 [![](https://img.shields.io/github/license/before25tofree/WebServer.svg)](https://github.com/before25tofree/WebServer/blob/master/LICENSE)
 [![](https://img.shields.io/badge/github.io-@pages-inactive.svg)](https://before25tofree.github.io/WebServer/)
-[![](https://img.shields.io/badge/blog-@grass-red.svg)](https://blog.csdn.net/qq_42381849)
+[![](https://img.shielrds.io/badge/blog-@grass-red.svg)](https://blog.csdn.net/qq_42381849)
 [![](https://img.shields.io/badge/Gmail-@bookish00grass-important.svg)](https://www.google.com/intl/zh-CN_cn/gmail/about/)
 
 ## Introduction
@@ -23,6 +23,49 @@
 ## Start server
 
     ./WebServer [-t thread_numbers] [-p port]
+
+## Example main.cpp
+
+        #include "EventLoop.h"
+        #include "Server.h"
+        #include <getopt.h>
+        #include <string>
+
+        int main(int argc, char *argv[])
+        {
+            int threadNum = 4;
+            int port = 8888;
+            std::string logPath = "./WebServer.log";
+
+            int opt;
+            const char *str = "t:p:";
+            while((opt = getopt(argc, argv, str)) != -1)
+            {
+                switch(opt)
+                {
+                    case 't':
+                    {
+                        threadNum = atoi(optarg);
+                        break;
+                    }
+                    case 'p':
+                    {
+                        port = atoi(optarg);
+                        break;
+                    }
+                    default: break;
+                }
+            }
+
+            #ifndef _PTHREADS
+                //LOG << "_PTHREADS is not defined !";
+            #endif
+            EventLoop mainLoop;
+            Server myHTTPServer(&mainLoop, threadNum, port);
+            myHTTPServer.start();
+            mainLoop.loop();
+            return 0;
+        }
 
 ## Technical
 

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="WebServer"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\WebServer\;CMake Files\WebServer\base\;CMake Files\WebServer\tests\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="D:/Study/github/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="D:/Study/github/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="D:/Study/github/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="WebServer">
+				<Option output="D:/Study/github/cmake-build-debug/WebServer/WebServer.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Study/github/cmake-build-debug/WebServer"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Study/github/base"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/include/c++"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/include/c++/mingw32"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/include/c++/backward"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/include"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/../../../../include"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/include-fixed"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/WebServer/Makefile&quot;  VERBOSE=1 WebServer"/>
+					<CompileFile command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/WebServer/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/WebServer/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/WebServer/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="WebServer/fast">
+				<Option output="D:/Study/github/cmake-build-debug/WebServer/WebServer.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Study/github/cmake-build-debug/WebServer"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Study/github/base"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/include/c++"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/include/c++/mingw32"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/include/c++/backward"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/include"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/../../../../include"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/include-fixed"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/WebServer/Makefile&quot;  VERBOSE=1 WebServer/fast"/>
+					<CompileFile command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/WebServer/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/WebServer/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/WebServer/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="libserver_base">
+				<Option output="D:/Study/github/cmake-build-debug/WebServer/base/libserver_base.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Study/github/cmake-build-debug/WebServer/base"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Study/github/base"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/include/c++"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/include/c++/mingw32"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/include/c++/backward"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/include"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/../../../../include"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/include-fixed"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/WebServer/base/Makefile&quot;  VERBOSE=1 libserver_base"/>
+					<CompileFile command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/WebServer/base/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/WebServer/base/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/WebServer/base/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="libserver_base/fast">
+				<Option output="D:/Study/github/cmake-build-debug/WebServer/base/libserver_base.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Study/github/cmake-build-debug/WebServer/base"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Study/github/base"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/include/c++"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/include/c++/mingw32"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/include/c++/backward"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/include"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/../../../../include"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/include-fixed"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/WebServer/base/Makefile&quot;  VERBOSE=1 libserver_base/fast"/>
+					<CompileFile command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/WebServer/base/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/WebServer/base/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/WebServer/base/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="HTTPClient">
+				<Option output="D:/Study/github/cmake-build-debug/WebServer/tests/HTTPClient.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Study/github/cmake-build-debug/WebServer/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Study/github/base"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/include/c++"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/include/c++/mingw32"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/include/c++/backward"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/include"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/../../../../include"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/include-fixed"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/WebServer/tests/Makefile&quot;  VERBOSE=1 HTTPClient"/>
+					<CompileFile command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/WebServer/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/WebServer/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/WebServer/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="HTTPClient/fast">
+				<Option output="D:/Study/github/cmake-build-debug/WebServer/tests/HTTPClient.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Study/github/cmake-build-debug/WebServer/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Study/github/base"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/include/c++"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/include/c++/mingw32"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/include/c++/backward"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/include"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/../../../../include"/>
+					<Add directory="D:/MinGW/bin/../lib/gcc/mingw32/4.9.2/include-fixed"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/WebServer/tests/Makefile&quot;  VERBOSE=1 HTTPClient/fast"/>
+					<CompileFile command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/WebServer/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/WebServer/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/MinGW/bin/mingw32-make.exe -f &quot;D:/Study/github/cmake-build-debug/WebServer/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="D:/Study/github/WebServer/Channel.cpp">
+			<Option target="WebServer"/>
+		</Unit>
+		<Unit filename="D:/Study/github/WebServer/Channel.h">
+			<Option target="WebServer"/>
+		</Unit>
+		<Unit filename="D:/Study/github/WebServer/Epoll.cpp">
+			<Option target="WebServer"/>
+		</Unit>
+		<Unit filename="D:/Study/github/WebServer/Epoll.h">
+			<Option target="WebServer"/>
+		</Unit>
+		<Unit filename="D:/Study/github/WebServer/EventLoop.cpp">
+			<Option target="WebServer"/>
+		</Unit>
+		<Unit filename="D:/Study/github/WebServer/EventLoop.h">
+			<Option target="WebServer"/>
+		</Unit>
+		<Unit filename="D:/Study/github/WebServer/EventLoopThread.cpp">
+			<Option target="WebServer"/>
+		</Unit>
+		<Unit filename="D:/Study/github/WebServer/EventLoopThread.h">
+			<Option target="WebServer"/>
+		</Unit>
+		<Unit filename="D:/Study/github/WebServer/EventLoopThreadPool.cpp">
+			<Option target="WebServer"/>
+		</Unit>
+		<Unit filename="D:/Study/github/WebServer/EventLoopThreadPool.h">
+			<Option target="WebServer"/>
+		</Unit>
+		<Unit filename="D:/Study/github/WebServer/HttpData.cpp">
+			<Option target="WebServer"/>
+		</Unit>
+		<Unit filename="D:/Study/github/WebServer/HttpData.h">
+			<Option target="WebServer"/>
+		</Unit>
+		<Unit filename="D:/Study/github/WebServer/Main.cpp">
+			<Option target="WebServer"/>
+		</Unit>
+		<Unit filename="D:/Study/github/WebServer/Server.cpp">
+			<Option target="WebServer"/>
+		</Unit>
+		<Unit filename="D:/Study/github/WebServer/Server.h">
+			<Option target="WebServer"/>
+		</Unit>
+		<Unit filename="D:/Study/github/WebServer/Timer.cpp">
+			<Option target="WebServer"/>
+		</Unit>
+		<Unit filename="D:/Study/github/WebServer/Timer.h">
+			<Option target="WebServer"/>
+		</Unit>
+		<Unit filename="D:/Study/github/WebServer/Util.cpp">
+			<Option target="WebServer"/>
+		</Unit>
+		<Unit filename="D:/Study/github/WebServer/Util.h">
+			<Option target="WebServer"/>
+		</Unit>
+		<Unit filename="D:/Study/github/WebServer/base/CountDownLatch.cpp">
+			<Option target="libserver_base"/>
+		</Unit>
+		<Unit filename="D:/Study/github/WebServer/base/CountDownLatch.h">
+			<Option target="libserver_base"/>
+		</Unit>
+		<Unit filename="D:/Study/github/WebServer/base/Thread.cpp">
+			<Option target="libserver_base"/>
+		</Unit>
+		<Unit filename="D:/Study/github/WebServer/base/Thread.h">
+			<Option target="libserver_base"/>
+		</Unit>
+		<Unit filename="D:/Study/github/WebServer/tests/HTTPClient.cpp">
+			<Option target="HTTPClient"/>
+		</Unit>
+		<Unit filename="D:/Study/github/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="D:/Study/github/WebServer/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\WebServer\"/>
+		</Unit>
+		<Unit filename="D:/Study/github/WebServer/base/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\WebServer\base\"/>
+		</Unit>
+		<Unit filename="D:/Study/github/WebServer/tests/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\WebServer\tests\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

@@ -1,0 +1,11 @@
+D:/Study/github/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/Study/github/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+D:/Study/github/cmake-build-debug/WebServer/CMakeFiles/WebServer.dir
+D:/Study/github/cmake-build-debug/WebServer/CMakeFiles/edit_cache.dir
+D:/Study/github/cmake-build-debug/WebServer/CMakeFiles/rebuild_cache.dir
+D:/Study/github/cmake-build-debug/WebServer/base/CMakeFiles/rebuild_cache.dir
+D:/Study/github/cmake-build-debug/WebServer/base/CMakeFiles/libserver_base.dir
+D:/Study/github/cmake-build-debug/WebServer/base/CMakeFiles/edit_cache.dir
+D:/Study/github/cmake-build-debug/WebServer/tests/CMakeFiles/HTTPClient.dir
+D:/Study/github/cmake-build-debug/WebServer/tests/CMakeFiles/edit_cache.dir
+D:/Study/github/cmake-build-debug/WebServer/tests/CMakeFiles/rebuild_cache.dir
