@@ -227,6 +227,9 @@ int socket_bind_listen(int port)
 	int optval = 1;
 	if(setsockopt(listen_fd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval)) == -1)
 		return -1;
+	// Linux version >= 3.7 ip and port multiplexing
+	if(setsockopt(listen_fd, SOL_SOCKET, SO_REUSEPORT, &optval, sizeof(optval)) == -1)
+		return -1;
 
 	// set wen server IP and Port listenfd
 	struct sockaddr_in server_addr;
